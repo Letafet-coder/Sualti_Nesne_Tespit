@@ -4,7 +4,7 @@ YOLOv8 tabanlı sualtı nesne tespiti için uçtan uca sistem. **Python FastAPI 
 (model çıkarımı + JSON doğrulama + SQLite kayıt) ve **React / Next.js panel**
 (canlı izleme, sınıf görselleri, zaman serisi grafikleri, geçmiş sorgulama, alarm) içerir.
 
-## Desteklenen sınıflar (6)
+## Desteklenen sınıflar (7)
 
 | Model adı        | Panel etiketi   |
 | ---------------- | --------------- |
@@ -63,10 +63,10 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ### Ortam değişkenleri (`.env`)
 
-| Değişken          | Varsayılan               | Açıklama                                             |
-| ----------------- | ------------------------ | ---------------------------------------------------- |
-| `MODEL_PATH`      | `models/Hazie_Model.pt`  | YOLO ağırlık dosyasının yolu                          |
-| `VIDEO_SOURCE`    | `0`                      | `0` = USB webcam, ya da `sample.mp4` gibi dosya yolu |
+| Değişken          | Varsayılan               | Açıklama                                              |
+| ----------------- | ------------------------ | ----------------------------------------------------  |
+| `MODEL_PATH`      | `models/Hazir_Model.pt`  | YOLO ağırlık dosyasının yolu                          |
+| `VIDEO_SOURCE`    | `0`                      | `0` = USB webcam, ya da `sample.mp4` gibi dosya yolu  |
 | `CONF_THRESHOLD`  | `0.35`                   | Minimum güven eşiği                                   |
 | `DB_PATH`         | `detections.db`          | SQLite veritabanı dosyası                             |
 | `TARGET_FPS`      | `10`                     | Çıkarım kare hızı                                     |
@@ -77,13 +77,13 @@ Video kaynağı olarak hem **USB webcam** (`VIDEO_SOURCE=0`) hem de **lokal .mp4
 
 ### API uç noktaları
 
-| Metot + yol            | Açıklama                                                     |
+| Metot + yol            | Açıklama                                                    |
 | ---------------------- | ----------------------------------------------------------- |
 | `GET /status`          | Model/video durumu, alarm ayarı, sınıf listesi              |
 | `GET /video`           | MJPEG canlı görüntü akışı (kutular çizili)                  |
 | `WS  /ws`              | Her kare için doğrulanmış JSON tespit sonucu (canlı akış)   |
 | `GET /history`         | Kayıtlı tespitler (filtre + sayfalama)                      |
-| `GET /stats`           | Toplam + sınıf bazlı özet                                    |
+| `GET /stats`           | Toplam + sınıf bazlı özet                                   |
 | `GET /timeseries`      | Zaman serisi (kova bazlı sayımlar)                          |
 | `POST /alarm`          | Alarm ayarını güncelle (`{ enabled, class_name }`)          |
 
