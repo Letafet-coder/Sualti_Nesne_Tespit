@@ -1,0 +1,23 @@
+
+
+services:
+  backend:
+    build: ./backend  # backend klasörünün içindeki Dockerfile'ı tetikler
+    container_name: maren_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/detections.db:/app/detections.db  # Veritabanı kaybolmasın diye eşitler
+      - ./backend/models:/app/models                # YOLO modellerini içeri bağlar
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+
+  frontend:
+    build: .          # Ana dizindeki Next.js Dockerfile'ını tetikler
+    container_name: maren_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
