@@ -11,7 +11,7 @@ YOLOv8 tabanlı sualtı nesne tespiti için uçtan uca sistem. **Python FastAPI 
 | `fish`           | Balık           |
 | `jellyfish`      | Denizanası      |
 | `penguin`        | Penguen         |
-| `puffin`         | Vatoz           |
+| `puffin`         | puffin          |
 | `shark`          | Köpekbalığı     |
 | `starfish`       | Deniz yıldızı   |
 | `stingray`       | Vatoz           |
@@ -70,7 +70,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | `CONF_THRESHOLD`  | `0.35`                   | Minimum güven eşiği                                   |
 | `DB_PATH`         | `detections.db`          | SQLite veritabanı dosyası                             |
 | `TARGET_FPS`      | `10`                     | Çıkarım kare hızı                                     |
-| `CORS_ORIGINS`    | `http://localhost:3000`  | Panelin adresi (virgülle çoklu)                       |
+| `CORS_ORIGINS`    | `http://localhost:3000`  | Panelin adresi                                        |
 
 Video kaynağı olarak hem **USB webcam** (`VIDEO_SOURCE=0`) hem de **lokal .mp4**
 (`VIDEO_SOURCE=sample.mp4`) desteklenir; `.mp4` dosyası bittiğinde başa sarılır.
@@ -80,11 +80,11 @@ Video kaynağı olarak hem **USB webcam** (`VIDEO_SOURCE=0`) hem de **lokal .mp4
 | Metot + yol            | Açıklama                                                    |
 | ---------------------- | ----------------------------------------------------------- |
 | `GET /status`          | Model/video durumu, alarm ayarı, sınıf listesi              |
-| `GET /video`           | MJPEG canlı görüntü akışı (kutular çizili)                  |
+| `GET /video`           | MJPEG canlı görüntü akışı                                   |
 | `WS  /ws`              | Her kare için doğrulanmış JSON tespit sonucu (canlı akış)   |
 | `GET /history`         | Kayıtlı tespitler (filtre + sayfalama)                      |
 | `GET /stats`           | Toplam + sınıf bazlı özet                                   |
-| `GET /timeseries`      | Zaman serisi (kova bazlı sayımlar)                          |
+| `GET /timeseries`      | Zaman serisi                                                |
 | `POST /alarm`          | Alarm ayarını güncelle (`{ enabled, class_name }`)          |
 
 #### `/history` sorgu parametreleri
