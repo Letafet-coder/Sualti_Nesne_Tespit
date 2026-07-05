@@ -8,12 +8,13 @@ YOLOv8 tabanlı sualtı nesne tespiti için uçtan uca sistem. **Python FastAPI 
 
 | Model adı        | Panel etiketi   |
 | ---------------- | --------------- |
-| `Fish`           | Balık           |
-| `Human Diver`    | Dalgıç          |
-| `Robot`          | Robot           |
-| `Stingray`       | Vatoz           |
-| `Turtle`         | Kaplumbağa      |
-| `Wrecks - Ruins` | Enkaz / Kalıntı |
+| `fish`           | Balık           |
+| `jellyfish`      | Denizanası      |
+| `penguin`        | Penguen         |
+| `puffin`         | Vatoz           |
+| `shark`          | Köpekbalığı     |
+| `starfish`       | Deniz yıldızı   |
+| `stingray`       | Vatoz           |
 
 > Not: Backend, sınıf adlarını modelin `model.names` alanından okur. Yukarıdaki
 > Türkçe etiketler yalnızca panelde gösterim içindir (`lib/classes.ts`).
@@ -41,7 +42,7 @@ Kamera / .mp4  ──▶  YOLOv8 (Ultralytics)  ──▶  Pydantic doğrulama
 ### Gereksinimler
 
 - Python 3.10+
-- Eğittiğiniz YOLO ağırlık dosyası: `backend/models/best.pt`
+- Eğittiğiniz YOLO ağırlık dosyası: `backend/models/Hazir_Model.pt`
 
 ### Kurulum
 
@@ -51,10 +52,8 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-cp .env.example .env             # ayarları düzenleyin
-# Eğittiğiniz modeli buraya kopyalayın:
-#   backend/models/best.pt
-```
+cp .env.example .env             
+
 
 ### Çalıştırma
 
@@ -66,7 +65,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 | Değişken          | Varsayılan               | Açıklama                                             |
 | ----------------- | ------------------------ | ---------------------------------------------------- |
-| `MODEL_PATH`      | `models/best.pt`         | YOLO ağırlık dosyasının yolu                          |
+| `MODEL_PATH`      | `models/Hazie_Model.pt`  | YOLO ağırlık dosyasının yolu                          |
 | `VIDEO_SOURCE`    | `0`                      | `0` = USB webcam, ya da `sample.mp4` gibi dosya yolu |
 | `CONF_THRESHOLD`  | `0.35`                   | Minimum güven eşiği                                   |
 | `DB_PATH`         | `detections.db`          | SQLite veritabanı dosyası                             |
@@ -114,7 +113,7 @@ YOLO çıktısı `app/schemas.py` içindeki Pydantic modelleriyle doğrulanır v
   "detections": [
     {
       "class_id": 1,
-      "class_name": "Human Diver",
+      "class_name": "Shark",
       "confidence": 0.92,
       "bbox": { "x1": 641, "y1": 85, "x2": 732, "y2": 274 }
     }
@@ -132,7 +131,7 @@ Her tespit ayrıca SQLite `detections` tablosuna kaydedilir ve `/history` ile so
 Panel bu deponun kök dizinindedir ve şu özellikleri sunar:
 
 - **Canlı İzleme:** MJPEG görüntü + kutu bindirmesi, alarm katmanı, duraklat/devam.
-- **Tespit Edilen Sınıflar:** 6 sınıfın görsel kartı; sınıf tespit edilince kartı
+- **Tespit Edilen Sınıflar:** 7 sınıfın görsel kartı; sınıf tespit edilince kartı
   vurgulanır ve güven skoru gösterilir (istenen "görsel çıksın" özelliği).
 - **Canlı Tespit Akışı:** Görsel + etiket + güven ile son tespitler.
 - **Uyarı (Alarm):** Varsayılan **kapalı**; panelden açılır, hedef sınıf seçilir,
@@ -143,7 +142,7 @@ Panel bu deponun kök dizinindedir ve şu özellikleri sunar:
 
 ### Backend'e bağlama
 
-Panel varsayılan olarak **demo modunda** çalışır (backend olmadan simüle veri).
+Panel varsayılan olarak **demo modunda** çalışır.
 Gerçek backend'e bağlamak için ortam değişkenini ayarlayın:
 
 ```bash
@@ -167,7 +166,7 @@ pnpm dev
 
 ## Uçtan uca çalıştırma sırası
 
-1. `backend/models/best.pt` dosyasını yerleştir.
+1. `backend/models/Hazir_Model.pt` dosyasını yerleştir.
 2. Backend'i başlat: `uvicorn app.main:app --port 8000`
 3. `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarla.
 4. Paneli başlat: `pnpm dev` → `http://localhost:3000`
