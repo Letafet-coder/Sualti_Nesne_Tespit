@@ -3,13 +3,18 @@ Uygulama yapılandırması.
 Tüm ayarlar ortam değişkenleri (.env) ile değiştirilebilir.
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Projenin kök dizinini dinamik olarak bul (backend klasörü)
+BASE_DIR = Path(__file__).resolve().parent
+
 # --- Model ---
-# Eğitilmiş YOLO ağırlık dosyasının yolu. 
-MODEL_PATH: str = os.getenv("MODEL_PATH", "C:\\Users\\HP\\Desktop\\underwater-project\\backend\\models\\Hazir_Model.pt")
+# Dinamik göreceli yol: Kod nerede çalışırsa çalışsın backend/models/Hazir_Model.pt dosyasını bulur.
+DEFAULT_MODEL_PATH = str(BASE_DIR / "models" / "Hazir_Model.pt")
+MODEL_PATH: str = os.getenv("MODEL_PATH", DEFAULT_MODEL_PATH)
 
 # Tespit güven eşiği (0-1 arası) Değiştirilebilir.
 CONFIDENCE_THRESHOLD: float = float(os.getenv("CONFIDENCE_THRESHOLD", "0.35"))
@@ -42,7 +47,6 @@ DB_PATH: str = os.getenv("DB_PATH", "detections.db")
 # --- Uyarı (alarm) ---
 # Varsayılan olarak alarm kapalıdır; panelden açılabilir ve sınıf seçilebilir.
 ALARM_ENABLED_DEFAULT: bool = os.getenv("ALARM_ENABLED", "false").lower() == "true"
-
 
 ALARM_CLASS_DEFAULT: str = os.getenv("ALARM_CLASS", "shark")
 
