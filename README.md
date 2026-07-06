@@ -193,7 +193,11 @@ REST uç noktalarını gerçek backend'den kullanır. Tanımlı değilse demo ve
 (önizlemede grafikler ve tespitler yine de görünür).
 
 ### Panel çalıştırma
-
+:: Panel için Node.js gerekir; npm ve pnpm ikisi de Node.js ile birlikte gelir. Önce kurulu olup olmadığını kontrol edin:
+node -v
+npm -v
+> Not: İkisi de bir sürüm numarası döndürüyorsa (örn. v24.x.x ve 11.x.x) Node.js zaten kuruludur — doğrudan Adım 2.2'ye geçin. Eğer 'node' is not recognized veya 'npm' is not recognized hatası alıyorsanız, Node.js kurulu değildir — aşağıdaki Adımı uygulayın.
+> 
 ```bash
 npm install -g pnpm
 pnpm install
