@@ -201,7 +201,7 @@ Eğer `'node' is not recognized` veya `'npm' is not recognized` hatası alıyors
 - LTS sürümünü seçin (güncel LTS: Node.js 24.x "Krypton"). *Current* değil, **LTS** olanı indirin.
 - Windows için `.msi` (64-bit) yükleyiciyi indirip çalıştırın.
 - Kurulum sihirbazında **"Add to PATH"** seçeneğinin işaretli olduğundan emin olun (varsayılan işaretlidir).
-- **"Automatically install the necessary tools... (Chocolatey)"** seçeneğini işaretlemeyin — bu proje için gereksizdir.
+- **"Automatically install the necessary tools... (Chocolatey)"** seçeneğini işaretlemeyin.
 - Kurulum bitince açık olan tüm terminalleri kapatın ve yeni bir terminal açın (PATH'in güncellenmesi için şart).
 
 Yeni terminalde kurulumu doğrulayın:
@@ -214,7 +214,8 @@ npm -v
 İkisi de sürüm numarası döndürüyorsa Node.js hazırdır; 
 **Adım 2.2** ile devam edin.
 
-> **Not:** Node.js modern npm ile birlikte `corepack` de getirir; istenirse `pnpm` onunla da etkinleştirilebilir. Ancak en basit yol **Adım 2.4**'teki `npm install -g pnpm` komutudur.
+> **Not:** Node.js modern npm ile birlikte `corepack` de getirir; istenirse `pnpm` onunla da etkinleştirilebilir. Ancak en basit yol
+ **Adım 2.4**'teki `npm install -g pnpm` komutudur.
 
 ### Adım 2.2 — Proje kök dizinine gidin
 
@@ -275,7 +276,9 @@ Terminalde `Local: http://localhost:3000` satırını görünce tarayıcıdan bu
 
 ---
 
-## Bölüm 3 — Kullanım
+
+=======
+## 3 ) Kullanım
 
 - Backend `http://localhost:8000`, panel `http://localhost:3000` adresinde çalışır.
 - Panelden bir `.mp4` video yükleyin (veya webcam'e geçin). O an backend terminalinde `[VIDEO]` satırları akmaya başlar.
@@ -330,4 +333,8 @@ docker-compose up --build
 1. `backend/models/Hazir_Model.pt` dosyasını yerleştirin.
 2. Backend'i başlatın: `uvicorn app.main:app --port 8000`
 3. `.env.local` içinde `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarlayın.
+<<<<<<< HEAD
 4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
+=======
+4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
+>>>>>>> f403414 (doc: Windows CMD/PowerShell kurulum adımları README'ye eklendi)
