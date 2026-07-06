@@ -94,8 +94,8 @@ INFO:  Application startup complete.
 :: Doğrulamak için tarayıcıdan şu adresi açın:
 http://localhost:8000/status
 
-> Not:Başlangıçta görüntü akmaması normaldir — VIDEO_SOURCE boş bırakılmıştır; sistem paneli açıp video yükleyene kadar bekler. Ayrıca ilk açılışta çıkan Ultralytics settings.json satırı hata değil, ayar dosyasının ilk kez oluşturulmasıdır.
-Not:  Başlangıçta görüntü akmaması normaldir — VIDEO_SOURCE boş bırakılmıştır; sistem paneli açıp video yükleyene kadar bekler. Ayrıca ilk açılışta çıkan Ultralytics settings.json satırı hata değil, ayar dosyasının ilk kez oluşturulmasıdır.
+> Not:Başlangıçta görüntü akmaması normaldir — VIDEO_SOURCE boş bırakılmıştır; sistem paneli açıp video yükleyene kadar bekler. Ayrıca  > ilk açılışta çıkan Ultralytics settings.json satırı hata değil, ayar dosyasının ilk kez oluşturulmasıdır.
+
 :: Bu terminali açık bırakın — backend çalışmaya devam etmeli.
 
 ```
