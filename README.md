@@ -34,9 +34,9 @@ Esnek Model Yönetimi: Sistem varsayılan olarak models/Hazir_Model.pt ağırlı
 ## Test Edilebilirlik
 Sistemin kararlılığını, veri bütünlüğünü ve gerçek zamanlı çalışma performansını doğrulamak amacıyla iki ana katmanda da kapsamlı testler gerçekleştirilmiştir:
 
-Backend Testi: FastAPI uç noktalarının doğruluğu, Pydantic şema validasyonları, SQLite veritabanı kayıt süreçleri ve WebSocket akış kararlılığı test edilmiştir.
+* **Backend Testi:** FastAPI uç noktalarının doğruluğu, Pydantic şema validasyonları, SQLite veritabanı kayıt süreçleri ve WebSocket akış kararlılığı test edilmiştir.
 
-Frontend (Panel) Testi: Bileşenlerin render süreçleri, canlı veri akışındaki gecikmeler, grafiklerin dinamik güncellenmesi ve demo/real-time mod geçiş senaryoları başarıyla test edilerek doğrulanmıştır.
+* **Frontend (Panel) Testi:** Bileşenlerin render süreçleri, canlı veri akışındaki gecikmeler, grafiklerin dinamik güncellenmesi ve demo/real-time mod geçiş senaryoları başarıyla test edilerek doğrulanmıştır.
 
 ---
 ## Mimari
@@ -179,47 +179,155 @@ Panel bu deponun kök dizinindedir ve şu özellikleri sunar:
   toplam sınıf dağılımı.
 - **Geçmiş Kayıtlar:** `/history` uç noktası; sınıf ve güven filtreleri + sayfalama.
 
-### Backend'e bağlama
+## Bölüm 2 — Panel (Next.js / React)
 
-Panel varsayılan olarak **demo modunda** çalışır.
-Gerçek backend'e bağlamak için ortam değişkenini ayarlayın:
+> **Not:** Bu bölümü yeni bir terminalde yapın. Backend terminaline dokunmayın, çalışmaya devam etsin.
+
+### Adım 2.1 — Node.js kurulu mu kontrol edin
+
+Panel için Node.js gerekir; `npm` ve `pnpm` ikisi de Node.js ile birlikte gelir. Önce kurulu olup olmadığını kontrol edin:
+
+```bash
+node -v
+npm -v
+```
+
+İkisi de bir sürüm numarası döndürüyorsa (örn. `v24.x.x` ve `11.x.x`) Node.js zaten kuruludur — doğrudan **Adım 2.2**'ye geçin.
+
+Eğer `'node' is not recognized` veya `'npm' is not recognized` hatası alıyorsanız, Node.js kurulu değildir — aşağıdaki **Adım 2.1a**'yı uygulayın.
+
+### Adım 2.1a — Node.js kurulumu (yalnızca kurulu değilse)
+
+- [nodejs.org/en/download](https://nodejs.org/en/download) adresine gidin.
+- LTS sürümünü seçin (güncel LTS: Node.js 24.x "Krypton"). *Current* değil, **LTS** olanı indirin.
+- Windows için `.msi` (64-bit) yükleyiciyi indirip çalıştırın.
+- Kurulum sihirbazında **"Add to PATH"** seçeneğinin işaretli olduğundan emin olun (varsayılan işaretlidir).
+- **"Automatically install the necessary tools... (Chocolatey)"** seçeneğini işaretlemeyin — bu proje için gereksizdir.
+- Kurulum bitince açık olan tüm terminalleri kapatın ve yeni bir terminal açın (PATH'in güncellenmesi için şart).
+
+Yeni terminalde kurulumu doğrulayın:
+
+```bash
+node -v
+npm -v
+```
+
+İkisi de sürüm numarası döndürüyorsa Node.js hazırdır; **Adım 2.2** ile devam edin.
+
+> **Not:** Node.js modern npm ile birlikte `corepack` de getirir; istenirse `pnpm` onunla da etkinleştirilebilir. Ancak en basit yol **Adım 2.4**'teki `npm install -g pnpm` komutudur.
+
+### Adım 2.2 — Proje kök dizinine gidin
+
+```bash
+cd C:\Users\MSI\Desktop\Sualti_Nesne_Tespit-main
+```
+
+(Backend değil, **kök dizin** — panel burada.)
+
+### Adım 2.3 — Paneli backend'e bağlayın
+
+Panel varsayılan olarak **demo modunda** çalışır (sahte veriyle, backend'e bağlanmadan).
+
+Gerçek backend'e bağlamak için kök dizinde `.env.local` dosyası oluşturun:
 
 ```bash
 echo NEXT_PUBLIC_BACKEND_URL=http://localhost:8000 > .env.local
 ```
 
-`NEXT_PUBLIC_BACKEND_URL` tanımlıysa panel WebSocket (`/ws`), MJPEG (`/video`) ve
-REST uç noktalarını gerçek backend'den kullanır. Tanımlı değilse demo verisi üretir
-(önizlemede grafikler ve tespitler yine de görünür).
+`NEXT_PUBLIC_BACKEND_URL` tanımlıysa panel WebSocket (`/ws`), MJPEG (`/video`) ve REST uç
+noktalarını gerçek backend'den kullanır. Tanımlı değilse demo verisi üretir (önizlemede
+grafikler ve tespitler yine de görünür).
 
-### Panel çalıştırma
-:: Panel için Node.js gerekir; npm ve pnpm ikisi de Node.js ile birlikte gelir. Önce kurulu olup olmadığını kontrol edin:
-node -v
-npm -v
-> Not: İkisi de bir sürüm numarası döndürüyorsa (örn. v24.x.x ve 11.x.x) Node.js zaten kuruludur — doğrudan Adım 2.2'ye geçin. Eğer 'node' is not recognized veya 'npm' is not recognized hatası alıyorsanız, Node.js kurulu değildir — aşağıdaki Adımı uygulayın.
-> 
+### Adım 2.4 — pnpm kurun ve bağımlılıkları yükleyin
+
 ```bash
+npm install -g pnpm
+pnpm install
+```
+
+`pnpm` yerine `npm install` de kullanabilirsiniz; ancak depoda `pnpm-lock.yaml` olduğu için
+`pnpm` daha temiz kurar.
+
+### Adım 2.5 — Build script onayı (pnpm hatası için)
+
+Yeni pnpm sürümü `sharp` ve `msw` paketlerinin build scriptlerini otomatik çalıştırmaz ve
+`ERR_PNPM_IGNORED_BUILDS` hatası verebilir. Çözüm:
+
+```bash
+pnpm approve-builds
+```
+
+Açılan listede `space` ile `sharp` ve `msw`'yi seçin (veya `a` ile hepsini), `Enter` ile onaylayın.
+
+Alternatif — kontrolü baypas edip doğrudan başlatmak isterseniz:
+
+```bash
+pnpm exec next dev
+```
+
+### Adım 2.6 — Paneli başlatın
+
+```bash
+pnpm dev
+```
+
+Terminalde `Local: http://localhost:3000` satırını görünce tarayıcıdan bu adresi açın.
+
+---
+
+## Bölüm 3 — Kullanım
+
+- Backend `http://localhost:8000`, panel `http://localhost:3000` adresinde çalışır.
+- Panelden bir `.mp4` video yükleyin (veya webcam'e geçin). O an backend terminalinde `[VIDEO]` satırları akmaya başlar.
+- Panelde canlı görüntü, kutu bindirmeleri, tespit edilen sınıf kartları, zaman serisi grafikleri ve geçmiş kayıtlar görünür.
+- Model 7 sınıf tanır: `fish`, `jellyfish`, `penguin`, `puffin`, `shark`, `starfish`, `stingray`.
+
+> **Not:** Excel dışa aktarma özelliğini (`/history/export/excel`) kullanacaksanız, backend venv'inde ayrıca `pip install openpyxl` çalıştırın; bu paket `requirements.txt`'te eksiktir ama sadece o özellik için gereklidir.
+
+---
+
+## Hızlı Komut Özeti
+
+**Terminal 1 — Backend**
+
+```bash
+cd ...\Sualti_Nesne_Tespit-main\backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+**Terminal 2 — Panel**
+
+```bash
+cd ...\Sualti_Nesne_Tespit-main
+echo NEXT_PUBLIC_BACKEND_URL=http://localhost:8000 > .env.local
 npm install -g pnpm
 pnpm install
 pnpm approve-builds
 pnpm dev
-# http://localhost:3000
 ```
 
 ---
 
 ## Docker ile Çalıştırma (Hızlı Kurulum)
-Projeyi yerel bilgisayarınızda herhangi bir Python veya Node.js bağımlılığı kurmakla uğraşmadan, izole bir konteyner mimarisinde tek bir komutla ayağa kaldırabilirsiniz.
 
-Kök dizinde yer alan Docker yapılandırması sayesinde hem backend hem de frontend servislerini derleyip çalıştırmak için şu komutu vermeniz yeterlidir:
+Projeyi yerel bilgisayarınızda herhangi bir Python veya Node.js bağımlılığı kurmakla
+uğraşmadan, izole bir konteyner mimarisinde tek bir komutla ayağa kaldırabilirsiniz.
+
+Kök dizinde yer alan Docker yapılandırması sayesinde hem backend hem de frontend
+servislerini derleyip çalıştırmak için şu komutu vermeniz yeterlidir:
 
 ```bash
 docker-compose up --build
 ```
 
-## Uçtan uca çalıştırma sırası
+---
 
-1. `backend/models/Hazir_Model.pt` dosyasını yerleştir.
-2. Backend'i başlat: `uvicorn app.main:app --port 8000`
-3. `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarla.
-4. Paneli başlat: `pnpm dev` → `http://localhost:3000`
+## Uçtan Uca Çalıştırma Sırası
+
+1. `backend/models/Hazir_Model.pt` dosyasını yerleştirin.
+2. Backend'i başlatın: `uvicorn app.main:app --port 8000`
+3. `.env.local` içinde `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarlayın.
+4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
