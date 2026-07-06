@@ -277,7 +277,7 @@ Terminalde `Local: http://localhost:3000` satırını görünce tarayıcıdan bu
 ---
 
 
-=======
+
 ## 3 ) Kullanım
 
 - Backend `http://localhost:8000`, panel `http://localhost:3000` adresinde çalışır.
@@ -333,8 +333,6 @@ docker-compose up --build
 1. `backend/models/Hazir_Model.pt` dosyasını yerleştirin.
 2. Backend'i başlatın: `uvicorn app.main:app --port 8000`
 3. `.env.local` içinde `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarlayın.
-<<<<<<< HEAD
-4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
-=======
+
 4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
 >>>>>>> f403414 (doc: Windows CMD/PowerShell kurulum adımları README'ye eklendi)
