@@ -167,6 +167,8 @@ Her tespit ayrıca SQLite `detections` tablosuna kaydedilir ve `/history` ile so
 
 ## 2) Panel (React / Next.js)
 
+> **Not:** Bu bölümü yeni bir terminalde yapın. Backend terminaline dokunmayın, çalışmaya devam etsin.
+> 
 Panel bu deponun kök dizinindedir ve şu özellikleri sunar:
 
 - **Canlı İzleme:** MJPEG görüntü + kutu bindirmesi, alarm katmanı, duraklat/devam.
@@ -179,9 +181,6 @@ Panel bu deponun kök dizinindedir ve şu özellikleri sunar:
   toplam sınıf dağılımı.
 - **Geçmiş Kayıtlar:** `/history` uç noktası; sınıf ve güven filtreleri + sayfalama.
 
-## Bölüm 2 — Panel (Next.js / React)
-
-> **Not:** Bu bölümü yeni bir terminalde yapın. Backend terminaline dokunmayın, çalışmaya devam etsin.
 
 ### Adım 2.1 — Node.js kurulu mu kontrol edin
 
@@ -212,14 +211,15 @@ node -v
 npm -v
 ```
 
-İkisi de sürüm numarası döndürüyorsa Node.js hazırdır; **Adım 2.2** ile devam edin.
+İkisi de sürüm numarası döndürüyorsa Node.js hazırdır; 
+**Adım 2.2** ile devam edin.
 
 > **Not:** Node.js modern npm ile birlikte `corepack` de getirir; istenirse `pnpm` onunla da etkinleştirilebilir. Ancak en basit yol **Adım 2.4**'teki `npm install -g pnpm` komutudur.
 
 ### Adım 2.2 — Proje kök dizinine gidin
 
 ```bash
-cd C:\Users\MSI\Desktop\Sualti_Nesne_Tespit-main
+cd C:\Users\HP\Desktop\underwater-project
 ```
 
 (Backend değil, **kök dizin** — panel burada.)
@@ -291,7 +291,7 @@ Terminalde `Local: http://localhost:3000` satırını görünce tarayıcıdan bu
 **Terminal 1 — Backend**
 
 ```bash
-cd ...\Sualti_Nesne_Tespit-main\backend
+cd ...\underwater-project\backend
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
@@ -301,7 +301,7 @@ uvicorn app.main:app --reload --port 8000
 **Terminal 2 — Panel**
 
 ```bash
-cd ...\Sualti_Nesne_Tespit-main
+cd ...\underwater-project
 echo NEXT_PUBLIC_BACKEND_URL=http://localhost:8000 > .env.local
 npm install -g pnpm
 pnpm install
