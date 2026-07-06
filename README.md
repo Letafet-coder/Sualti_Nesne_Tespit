@@ -21,6 +21,24 @@ YOLOv8 tabanlı sualtı nesne tespiti için uçtan uca sistem. **Python FastAPI 
 
 ---
 
+## Veri Setleri ve Model Eğitimi
+Proje geliştirme ve optimizasyon sürecinde 2 farklı model eğitilmiş ve performansları test edilmiştir:
+
+Hazır Model ve Genel Sualtı Veri Seti: Projede kullanılan hazır model, Kaggle üzerinde yer alan YOLOv8 Underwater Object Detection Dataset taban alınarak hazırlanmış ve ayrıca Collection of Underwater Object Detection Dataset açık kaynak veri setiyle desteklenerek eğitilmiştir.
+
+Özel (Custom) Veri Seti: İkinci model ise projeye özgü etiketlerle tamamen tarafımca hazırlanan, düzenlenen ve optimize edilen Roboflow - Underwater Labels (usebo) veri seti ile eğitilmiştir.
+
+Esnek Model Yönetimi: Sistem varsayılan olarak models/Hazir_Model.pt ağırlık dosyasını kullanır. Ancak altyapı tamamen dinamik tasarlanmıştır; kendi eğittiğiniz herhangi bir YOLO modelini ilgili dizine bırakıp .env dosyasındaki MODEL_PATH değişkenini ayarlayarak sistemi yeni modelinizle doğrudan çalıştırabilirsiniz.
+---
+
+## Test Edilebilirlik
+Sistemin kararlılığını, veri bütünlüğünü ve gerçek zamanlı çalışma performansını doğrulamak amacıyla iki ana katmanda da kapsamlı testler gerçekleştirilmiştir:
+
+Backend Testi: FastAPI uç noktalarının doğruluğu, Pydantic şema validasyonları, SQLite veritabanı kayıt süreçleri ve WebSocket akış kararlılığı test edilmiştir.
+
+Frontend (Panel) Testi: Bileşenlerin render süreçleri, canlı veri akışındaki gecikmeler, grafiklerin dinamik güncellenmesi ve demo/real-time mod geçiş senaryoları başarıyla test edilerek doğrulanmıştır.
+
+---
 ## Mimari
 
 ```
@@ -163,6 +181,15 @@ pnpm dev
 ```
 
 ---
+
+## Docker ile Çalıştırma (Hızlı Kurulum)
+Projeyi yerel bilgisayarınızda herhangi bir Python veya Node.js bağımlılığı kurmakla uğraşmadan, izole bir konteyner mimarisinde tek bir komutla ayağa kaldırabilirsiniz.
+
+Kök dizinde yer alan Docker yapılandırması sayesinde hem backend hem de frontend servislerini derleyip çalıştırmak için şu komutu vermeniz yeterlidir:
+
+```bash
+docker-compose up --build
+```
 
 ## Uçtan uca çalıştırma sırası
 
