@@ -67,10 +67,10 @@ Kamera / .mp4  ──▶  YOLOv8 (Ultralytics)  ──▶  Pydantic doğrulama
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+.\.venv\Scripts\activate
 pip install -r requirements.txt
 
-cp .env.example .env             
+copy .env.example .env            
 
 
 ### Çalıştırma
@@ -164,8 +164,7 @@ Panel varsayılan olarak **demo modunda** çalışır.
 Gerçek backend'e bağlamak için ortam değişkenini ayarlayın:
 
 ```bash
-# .env.local
-NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+echo NEXT_PUBLIC_BACKEND_URL=http://localhost:8000 > .env.local
 ```
 
 `NEXT_PUBLIC_BACKEND_URL` tanımlıysa panel WebSocket (`/ws`), MJPEG (`/video`) ve
