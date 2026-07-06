@@ -59,24 +59,38 @@ Kamera / .mp4  ──▶  YOLOv8 (Ultralytics)  ──▶  Pydantic doğrulama
 
 ### Gereksinimler
 
-- Python 3.10+
+* Python 3.10 veya üstü (Backend için) [cite: 7]
+* Node.js 18 veya üstü (Panel için) [cite: 8]
 - Eğittiğiniz YOLO ağırlık dosyası: `backend/models/Hazir_Model.pt`
 
 ### Kurulum
-
-```bash
+```cmd
 cd backend
-python -m venv .venv
+:: Sanal ortamı oluşturun
+python -m venv venv
+
+:: Komut İstemi (CMD) kullanıyorsanız aktive edin:
 venv\Scripts\activate
+
+:: PowerShell kullanıyorsanız aktive edin:
+.\venv\Scripts\Activate.ps1
+
+
+Bağımlılıkları Kurun
 pip install -r requirements.txt
 
-copy .env.example .env            
-
-
-### Çalıştırma
+.env dosyasını kontrol edin
+dir .env
+            
+### Backend'i Çalıştırma
 
 ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+Şu satırları görmelisiniz:
+INFO:  Uvicorn running on http://127.0.0.1:8000
+INFO:  Application startup complete.
+Doğrulamak için tarayıcıdan şu adresi açın:
+http://localhost:8000/status
 ```
 
 ### Ortam değişkenleri (`.env`)
@@ -174,7 +188,9 @@ REST uç noktalarını gerçek backend'den kullanır. Tanımlı değilse demo ve
 ### Panel çalıştırma
 
 ```bash
+npm install -g pnpm
 pnpm install
+pnpm approve-builds
 pnpm dev
 # http://localhost:3000
 ```
