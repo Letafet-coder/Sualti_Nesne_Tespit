@@ -77,7 +77,7 @@ venv\Scripts\activate
 
 :: Bağımlılıkları Kurun
 pip install -r requirements.txt
-> Not: Bu komut ultralytics üzerinden PyTorch'u (CPU sürümü, ~1–2 GB) da indirir. İlk kurulum uzun sürer; bağlantı kesilirse aynı komutu tekrar çalıştırın, kaldığı yerden devam eder.
+> Not: Bu komut ultralytics üzerinden PyTorch'u (CPU sürümü, ~1–2 GB) da indirir. İlk kurulum uzun sürer; bağlantı kesilirse aynı komutu > tekrar çalıştırın, kaldığı yerden devam eder.
 
 :: .env dosyasını kontrol edin
 dir .env
