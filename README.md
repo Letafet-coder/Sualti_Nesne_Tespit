@@ -75,9 +75,9 @@ venv\Scripts\activate
 :: PowerShell kullanıyorsanız aktive edin:
 .\venv\Scripts\Activate.ps1
 
-
 :: Bağımlılıkları Kurun
 pip install -r requirements.txt
+> Not: Bu komut ultralytics üzerinden PyTorch'u (CPU sürümü, ~1–2 GB) da indirir. İlk kurulum uzun sürer; bağlantı kesilirse aynı komutu tekrar çalıştırın, kaldığı yerden devam eder.
 
 :: .env dosyasını kontrol edin
 dir .env
@@ -93,6 +93,11 @@ INFO:  Application startup complete.
 
 :: Doğrulamak için tarayıcıdan şu adresi açın:
 http://localhost:8000/status
+
+> Not:Başlangıçta görüntü akmaması normaldir — VIDEO_SOURCE boş bırakılmıştır; sistem paneli açıp video yükleyene kadar bekler. Ayrıca ilk açılışta çıkan Ultralytics settings.json satırı hata değil, ayar dosyasının ilk kez oluşturulmasıdır.
+Not:  Başlangıçta görüntü akmaması normaldir — VIDEO_SOURCE boş bırakılmıştır; sistem paneli açıp video yükleyene kadar bekler. Ayrıca ilk açılışta çıkan Ultralytics settings.json satırı hata değil, ayar dosyasının ilk kez oluşturulmasıdır.
+:: Bu terminali açık bırakın — backend çalışmaya devam etmeli.
+
 ```
 
 ### Ortam değişkenleri (`.env`)
