@@ -76,20 +76,22 @@ venv\Scripts\activate
 .\venv\Scripts\Activate.ps1
 
 
-Bağımlılıkları Kurun
+:: Bağımlılıkları Kurun
 pip install -r requirements.txt
 
-.env dosyasını kontrol edin
+:: .env dosyasını kontrol edin
 dir .env
             
 ### Backend'i Çalıştırma
 
 ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-Şu satırları görmelisiniz:
+
+:: Şu satırları görmelisiniz:
 INFO:  Uvicorn running on http://127.0.0.1:8000
 INFO:  Application startup complete.
-Doğrulamak için tarayıcıdan şu adresi açın:
+
+:: Doğrulamak için tarayıcıdan şu adresi açın:
 http://localhost:8000/status
 ```
 
