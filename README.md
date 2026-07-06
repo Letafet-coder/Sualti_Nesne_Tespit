@@ -335,4 +335,4 @@ docker-compose up --build
 3. `.env.local` içinde `NEXT_PUBLIC_BACKEND_URL=http://localhost:8000` ayarlayın.
 
 4. Paneli başlatın: `pnpm dev` → `http://localhost:3000`
->>>>>>> f403414 (doc: Windows CMD/PowerShell kurulum adımları README'ye eklendi)
+
